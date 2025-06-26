@@ -3,6 +3,8 @@
 A Neovim plugin that provides a floating window interface for
 [lazyjj](https://github.com/Cretezy/lazyjj).
 
+![lazyjj.nvim screenshot](./res/screenshot.png)
+
 ## Requirements
 
 - Neovim >= 0.5.0
