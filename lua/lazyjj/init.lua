@@ -49,8 +49,13 @@ function M.setup(opts)
 		mapping = "<leader>jj", -- Default keymapping
 	}, opts or {})
 
-	-- Create user command
-	vim.api.nvim_create_user_command("LazyJJ", M.open, {})
+	-- Create user commands
+	vim.api.nvim_create_user_command("LazyJJ", function()
+		M.open()
+	end, {})
+	vim.api.nvim_create_user_command("LazyJJCwd", function()
+		M.open({ cwd = vim.fn.getcwd() })
+	end, {})
 
 	-- Set up keymapping if provided
 	if M.config.mapping then
@@ -62,7 +67,13 @@ function M.setup(opts)
 	end
 end
 
-function M.open()
+--- Open lazyjj in a floating terminal window.
+--- @param opts table|nil Optional table with:
+---   - `cwd` (string): directory to launch lazyjj in.
+---     Defaults to Neovim's current working directory.
+function M.open(opts)
+	opts = opts or {}
+
 	-- Store current window ID for late    -- Check if lazyjj is available
 	local cmd = "lazyjj"
 	if vim.fn.executable(cmd) ~= 1 then
@@ -80,6 +91,7 @@ function M.open()
 
 	-- Execute lazyjj in the floating window
 	vim.fn.termopen(cmd, {
+		cwd = opts.cwd, -- nil falls back to Neovim's cwd
 		-- Return to previous window on exit
 		on_exit = function()
 			if vim.api.nvim_win_is_valid(prev_win) then
