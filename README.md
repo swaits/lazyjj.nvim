@@ -60,6 +60,10 @@ Or when using [lazy.nvim](https://github.com/folke/lazy.nvim):
 - Use the configured keymap (default: `<leader>jj`) to open `lazyjj` in a floating
   window
 - Or use the `:LazyJJ` command
+- Use `:LazyJJCwd` to explicitly open `lazyjj` in Neovim's current working
+  directory (useful after `:cd` / `:lcd`, e.g. in monorepos)
+- From Lua, you can pass an explicit directory:
+  `require('lazyjj').open({ cwd = '/path/to/dir' })`
 - Press `q` or lose focus to close the window
 - The window will automatically return focus to your previous window when
   closing `lazyjj`
